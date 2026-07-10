@@ -84,3 +84,59 @@ These constraints limited the growth of the tree and encouraged the model to lea
 
 * **Outcome**
   * The controlled Decision Tree successfully addressed the overfitting problem observed in the baseline model. By applying the hyperparameters **`max_depth = 5`** and **`min_samples_split = 20`**, the model became simpler, more stable, and better at generalizing to unseen data. This experiment demonstrated that carefully tuning tree complexity can significantly improve predictive performance and produce a more robust machine learning model.
+
+
+### Task 3: Gini vs Entropy**
+  * To compare different splitting criteria used by Decision Tree classifiers, two models were trained using different impurity measures:
+    * **Gini Impurity (`criterion='gini'`)**
+    * **Entropy (`criterion='entropy'`)**
+  * Both models were trained using the same training dataset and evaluated on the same test dataset to ensure a fair comparison.
+    
+* **Gini Impurity**
+  * The first Decision Tree was trained using **Gini Impurity** as the splitting criterion.
+  * The Gini impurity is calculated as:
+    **Gini Impurity = 1 − Σ(pi²)**
+  * where **pi** represents the probability of each class within a node.
+  * The Gini index measures how often a randomly selected sample would be incorrectly classified if it were labeled according to the class distribution of the node.
+  * A **Gini value of 0** indicates that all samples in the node belong to the same class, meaning the node is perfectly pure.
+  * Lower Gini values represent purer nodes and better splits.
+
+* **Entropy**
+  * The second Decision Tree was trained using **Entropy** as the splitting criterion.
+  * Entropy is calculated as:
+    **Entropy = − Σ(pi × log₂(pi))**
+  * where **pi** is the probability of each class within the node.
+  * Entropy measures the amount of uncertainty or disorder present in a node.
+    * **Entropy = 0** indicates complete purity, meaning all samples belong to a single class.
+    * Higher entropy values indicate greater class mixture and uncertainty.
+The Decision Tree algorithm selects the split that produces the largest reduction in entropy, commonly referred to as **Information Gain**.
+
+* **Comparing Gini and Entropy**
+  * Both Decision Tree models were evaluated using the same performance metrics on the test dataset.
+  * The comparison focused on:
+    * Training accuracy
+    * Testing accuracy
+    * Overall classification performance
+The results showed that the **Gini** and **Entropy** criteria produced **very similar test accuracy**, indicating that both methods identified nearly the same decision boundaries for this dataset.
+
+* **Interpretation**
+  * Although Gini Impurity and Entropy use different mathematical formulas to measure node impurity, they often produce very similar Decision Trees in practice.
+  * The experiment demonstrated that:
+    * **Gini Impurity = 0** means the node is perfectly pure because all samples belong to a single class.
+    * **Entropy = 0** also indicates complete purity with no uncertainty.
+    * Both criteria generally select similar feature splits and achieve comparable predictive performance.
+In many real-world machine learning problems, the choice between Gini and Entropy has only a small effect on the final accuracy.
+
+* **Practical Differences**
+  * Although their performance is often similar, there are some practical differences:
+  * **Gini Impurity**
+    * Computationally faster because it does not require logarithmic calculations.
+    * Commonly used as the default criterion in Scikit-learn.
+    * Preferred when computational efficiency is important.
+  * **Entropy**
+    * Based on Information Theory.
+    * Uses Information Gain to determine the best split.
+    * May occasionally produce slightly different tree structures but usually similar predictive performance.
+
+* **Outcome**
+  * The comparison between **Gini Impurity** and **Entropy** showed that both splitting criteria produced nearly identical classification performance on the test dataset. This indicates that either criterion can be effectively used for Decision Tree learning, with the choice often depending on computational efficiency or user preference rather than significant differences in predictive accuracy.
