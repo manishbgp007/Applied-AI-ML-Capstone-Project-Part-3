@@ -73,7 +73,7 @@ These constraints limited the growth of the tree and encouraged the model to lea
     * **Testing Accuracy:** Higher than the unconstrained Decision Tree.
  Although the model did not memorize the training data as effectively, it performed better on unseen data, indicating improved predictive capability.
 
-* **Interpretation
+* **Interpretation**
   * The decrease in training accuracy combined with the improvement in testing accuracy indicates that the controlled Decision Tree achieved better **generalization**.
   * This demonstrates the effect of **regularization**, where limiting model complexity helps reduce overfitting.
   * Instead of learning random noise present in the training data, the controlled tree focused on capturing the most significant and meaningful patterns, resulting in more reliable predictions on new observations.
