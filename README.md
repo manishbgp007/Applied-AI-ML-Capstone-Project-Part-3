@@ -86,7 +86,7 @@ These constraints limited the growth of the tree and encouraged the model to lea
   * The controlled Decision Tree successfully addressed the overfitting problem observed in the baseline model. By applying the hyperparameters **`max_depth = 5`** and **`min_samples_split = 20`**, the model became simpler, more stable, and better at generalizing to unseen data. This experiment demonstrated that carefully tuning tree complexity can significantly improve predictive performance and produce a more robust machine learning model.
 
 
-### Task 3: Gini vs Entropy**
+### Task 3: Gini vs Entropy
   * To compare different splitting criteria used by Decision Tree classifiers, two models were trained using different impurity measures:
     * **Gini Impurity (`criterion='gini'`)**
     * **Entropy (`criterion='entropy'`)**
@@ -335,7 +335,7 @@ The **Stratified** approach preserves the original class distribution in every f
     * **Gradient Boosting**
 Using the same evaluation strategy ensured a fair comparison between all machine learning algorithms.
 
-* **Reported Results
+* **Reported Results**
   * For each model, the following statistics were calculated:
     * **Mean ROC-AUC**
     * **Standard Deviation (Std) of ROC-AUC**
@@ -385,7 +385,7 @@ Using a pipeline ensures that every preprocessing step is applied consistently d
     * 5
 Each possible combination of these values was evaluated during the search process.
 
-* **Performing Grid Search
+* **Performing Grid Search**
   * The **GridSearchCV** algorithm was used together with **5-fold Cross-Validation**.
   * For every hyperparameter combination:
     * The training data was divided into five folds.
@@ -480,7 +480,7 @@ To understand how the amount of training data affects model performance, a **man
     * Performance improvements are more likely to come from using a more sophisticated model, better feature engineering, or additional hyperparameter tuning.
     * The model is considered **capacity-limited**.
 
-* **Importance of Learning Curves
+* **Importance of Learning Curves**
   * Learning curves are valuable diagnostic tools because they help identify:
     * Whether the model is overfitting or underfitting.
     * Whether additional training data is likely to improve performance.
@@ -525,5 +525,5 @@ This verification step confirmed that the saved model could be reliably reused.
     * Reduces computational cost and saves time during inference.
 Serialization is an essential step in the machine learning deployment workflow because it transforms a trained model into a reusable production asset.
 
-* **Outcome*
+* **Outcome**
   * The best-performing machine learning pipeline was successfully serialized using **`joblib.dump()`** and stored as **`best_model.pkl`**. The model was then reloaded using **`joblib.load()`**, and its predictions were verified on sample data to confirm correctness. This process demonstrated that the trained pipeline can be reused without retraining, ensuring reproducibility, efficient deployment, and consistent prediction performance in future applications.
