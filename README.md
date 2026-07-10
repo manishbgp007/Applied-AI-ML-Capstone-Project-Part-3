@@ -140,3 +140,56 @@ In many real-world machine learning problems, the choice between Gini and Entrop
 
 * **Outcome**
   * The comparison between **Gini Impurity** and **Entropy** showed that both splitting criteria produced nearly identical classification performance on the test dataset. This indicates that either criterion can be effectively used for Decision Tree learning, with the choice often depending on computational efficiency or user preference rather than significant differences in predictive accuracy.
+
+
+### Task 4: Random Forest Classifier
+To improve the performance and generalization ability of the Decision Tree model, a **Random Forest Classifier** was implemented. Random Forest is an ensemble learning algorithm that combines the predictions of multiple Decision Trees to produce a more accurate and robust classifier. By averaging the predictions of many trees, Random Forest reduces the risk of overfitting that is commonly observed in a single Decision Tree.
+
+* **Training the Random Forest Model**
+  * The Random Forest model was trained using the following hyperparameters:
+    * **Number of Trees (`n_estimators`) = 100**
+    * **Maximum Tree Depth (`max_depth`) = 10**
+  * Each of the 100 decision trees was trained independently, and the final prediction was obtained through **majority voting** among all trees.
+  * Limiting the maximum depth to **10** helped prevent individual trees from becoming overly complex while maintaining sufficient flexibility to learn meaningful patterns.
+
+* **Model Evaluation**
+  * The trained Random Forest model was evaluated using both the training and testing datasets.
+  * The following performance metrics were reported:
+    * **Training Accuracy**
+    * **Testing Accuracy**
+    * **ROC-AUC Score**
+  * These metrics were used to evaluate both the learning capability and the generalization performance of the model.
+    * **Training Accuracy** indicates how well the model fits the training data.
+    * **Testing Accuracy** measures the model's performance on unseen data.
+    * **ROC-AUC** evaluates the model's ability to distinguish between the two classes across different decision thresholds.
+A high test accuracy and a high ROC-AUC score indicate that the model generalizes well and makes reliable predictions.
+
+* **Feature Importance Analysis**
+  * One advantage of Random Forest is its ability to estimate the relative importance of each input feature.
+  * The **top five most important features** were identified based on the feature importance scores produced by the model.
+  * Feature importance in Random Forest is calculated as the **average reduction in Gini impurity** contributed by a feature across all decision tree splits. These reductions are aggregated over all trees in the forest and then normalized to produce the final importance score.
+  * Features with higher importance scores contribute more to the prediction process and have a greater influence on the model's decisions.
+
+* **Understanding the Bagging Technique**
+  * Random Forest is based on the **Bootstrap Aggregating (Bagging)** technique.
+  * The algorithm improves prediction performance through two sources of randomness:
+    * Bootstrap Sampling
+      * Each decision tree is trained on a **bootstrap sample**, which is created by randomly sampling observations **with replacement** from the original training dataset.
+      * Because sampling is performed with replacement, some observations may appear multiple times in a bootstrap sample, while others may not appear at all.
+      * This creates diversity among the individual trees.
+    * Random Feature Selection
+      * At every split in a decision tree, Random Forest does **not** evaluate all available features.
+      * Instead, it randomly selects a subset of features, typically equal to **√(number of features)** for classification tasks, and chooses the best split only from that subset.
+      * This additional randomness reduces the similarity between trees and increases the diversity of the ensemble.
+
+* **Why Random Forest Performs Better**
+  * A single Decision Tree is considered a **high-variance model** because small changes in the training data can produce very different tree structures.
+  * Random Forest reduces this variance by averaging the predictions of many independent trees.
+  * As a result:
+    * Individual trees may make different errors.
+    * Averaging their predictions reduces the impact of those errors.
+    * The final model becomes more stable and generalizes better to unseen data.
+This ensemble approach usually provides higher predictive accuracy and better robustness than a single deep Decision Tree.
+
+* **Outcome**
+  * The Random Forest Classifier successfully combined **100 Decision Trees** to produce a more accurate and reliable classification model. The model was evaluated using **training accuracy, testing accuracy, and ROC-AUC**, while the **top five most important features** provided insights into the variables that most strongly influenced the predictions. The experiment also demonstrated how **bagging**, **bootstrap sampling**, and **random feature selection** reduce variance and improve generalization, making Random Forest one of the most effective ensemble learning algorithms for classification tasks.
