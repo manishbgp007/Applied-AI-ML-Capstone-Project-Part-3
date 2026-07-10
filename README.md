@@ -193,3 +193,72 @@ This ensemble approach usually provides higher predictive accuracy and better ro
 
 * **Outcome**
   * The Random Forest Classifier successfully combined **100 Decision Trees** to produce a more accurate and reliable classification model. The model was evaluated using **training accuracy, testing accuracy, and ROC-AUC**, while the **top five most important features** provided insights into the variables that most strongly influenced the predictions. The experiment also demonstrated how **bagging**, **bootstrap sampling**, and **random feature selection** reduce variance and improve generalization, making Random Forest one of the most effective ensemble learning algorithms for classification tasks.
+
+
+### Task 4a: Gradient Boosting Classifier
+
+To further improve classification performance, a **Gradient Boosting Classifier** was implemented. Unlike Random Forest, which builds many independent decision trees in parallel, Gradient Boosting builds trees **sequentially**, where each new tree learns to correct the prediction errors made by the previous trees. This boosting strategy often results in higher predictive accuracy, especially for complex datasets.
+
+* **Training the Gradient Boosting Model**
+  * The Gradient Boosting Classifier was trained using the following hyperparameters:
+    * **Number of Estimators (`n_estimators`) = 100**
+    * **Learning Rate (`learning_rate`) = 0.1**
+    * **Maximum Tree Depth (`max_depth`) = 3**
+
+Each tree in the ensemble was intentionally kept shallow (depth = 3), allowing the model to learn gradually while reducing the risk of overfitting.
+
+* **Model Evaluation**
+  * The trained Gradient Boosting model was evaluated on both the training and testing datasets.
+  * The following evaluation metrics were reported:
+    * **Training Accuracy**
+    * **Testing Accuracy**
+    * **ROC-AUC Score**
+  * These metrics were used to assess both the learning performance and the generalization capability of the model.
+    * **Training Accuracy** measures how well the model fits the training data.
+    * **Testing Accuracy** evaluates performance on unseen data.
+    * **ROC-AUC** measures the model's ability to distinguish between positive and negative classes across all classification thresholds.
+A higher ROC-AUC indicates better classification performance.
+
+* **How Gradient Boosting Works**
+  * Gradient Boosting is an **ensemble learning algorithm** that combines multiple weak learners (typically shallow decision trees) into a strong predictive model.
+  * The algorithm operates sequentially:
+    1. The first tree is trained on the original dataset.
+    2. The prediction errors (residuals) from the first tree are calculated.
+    3. A second tree is trained specifically to correct those errors.
+    4. Each subsequent tree continues to reduce the remaining prediction errors.
+    5. The final prediction is obtained by combining the predictions of all trees.
+Because every new tree focuses on correcting mistakes made by earlier trees, the overall model becomes increasingly accurate.
+
+* **Role of the Hyperparameters**
+  * Number of Estimators (`n_estimators = 100`)
+  * This parameter specifies the total number of trees in the boosting sequence.
+  * Using more trees generally allows the model to learn more complex patterns, although an excessively large number of trees may increase computation time and the risk of overfitting.
+  * Learning Rate (`learning_rate = 0.1`)
+  * The learning rate determines how much each new tree contributes to the final prediction.
+  * **Lower learning rate**
+    * Slower learning.
+    * Often better generalization.
+    * Usually requires more trees.
+  * **Higher learning rate**
+    * Faster learning.
+    * May fit the training data more quickly.
+    * Increases the risk of overfitting if set too high.
+  * A value of **0.1** provides a good balance between learning speed and model stability.
+  * Maximum Tree Depth (`max_depth = 3`)
+  * The maximum depth controls the complexity of each individual decision tree.
+  * Keeping the trees shallow:
+    * Reduces overfitting.
+    * Improves generalization.
+    * Encourages each tree to learn only simple patterns while the ensemble captures complex relationships.
+
+* **Interpretation**
+  * The Gradient Boosting model demonstrated how sequential learning can improve predictive performance.
+  * Unlike Random Forest, where trees are built independently, Gradient Boosting continuously improves the model by correcting previous mistakes.
+  * This often results in:
+    * Higher prediction accuracy.
+    * Better ROC-AUC performance.
+    * Stronger ability to capture complex relationships in the data.
+However, if the **learning rate** is too high or the **tree depth** is too large, the model may begin to memorize the training data, leading to **overfitting**. Therefore, careful tuning of these hyperparameters is essential to achieve a balance between model complexity and generalization.
+
+* **Outcome**
+  * The Gradient Boosting Classifier was successfully trained using **100 estimators**, a **learning rate of 0.1**, and **maximum tree depth of 3**. The model was evaluated using **training accuracy, testing accuracy, and ROC-AUC**, demonstrating its effectiveness as a powerful ensemble learning technique. The experiment highlighted the advantages of sequential boosting while emphasizing the importance of selecting appropriate hyperparameters to maximize predictive performance without causing overfitting.
