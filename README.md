@@ -173,14 +173,14 @@ A high test accuracy and a high ROC-AUC score indicate that the model generalize
 * **Understanding the Bagging Technique**
   * Random Forest is based on the **Bootstrap Aggregating (Bagging)** technique.
   * The algorithm improves prediction performance through two sources of randomness:
-    * Bootstrap Sampling
-      * Each decision tree is trained on a **bootstrap sample**, which is created by randomly sampling observations **with replacement** from the original training dataset.
-      * Because sampling is performed with replacement, some observations may appear multiple times in a bootstrap sample, while others may not appear at all.
-      * This creates diversity among the individual trees.
-    * Random Feature Selection
-      * At every split in a decision tree, Random Forest does **not** evaluate all available features.
-      * Instead, it randomly selects a subset of features, typically equal to **√(number of features)** for classification tasks, and chooses the best split only from that subset.
-      * This additional randomness reduces the similarity between trees and increases the diversity of the ensemble.
+  * Bootstrap Sampling
+    * Each decision tree is trained on a **bootstrap sample**, which is created by randomly sampling observations **with replacement** from the original training dataset.
+    * Because sampling is performed with replacement, some observations may appear multiple times in a bootstrap sample, while others may not appear at all.
+    * This creates diversity among the individual trees.
+  * Random Feature Selection
+    * At every split in a decision tree, Random Forest does **not** evaluate all available features.
+    * Instead, it randomly selects a subset of features, typically equal to **√(number of features)** for classification tasks, and chooses the best split only from that subset.
+    * This additional randomness reduces the similarity between trees and increases the diversity of the ensemble.
 
 * **Why Random Forest Performs Better**
   * A single Decision Tree is considered a **high-variance model** because small changes in the training data can produce very different tree structures.
