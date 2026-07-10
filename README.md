@@ -356,3 +356,77 @@ Together, these two statistics provide a more complete assessment of model quali
 
 * **Outcome**
   * The **5-fold Stratified Cross-Validation** experiment successfully compared the performance of **Logistic Regression**, **Controlled Decision Tree**, **Random Forest**, and **Gradient Boosting** using **ROC-AUC** as the evaluation metric. By reporting both the **mean** and **standard deviation** of ROC-AUC, the analysis provided a robust assessment of each model's predictive accuracy and stability. This comparison helped identify the model that offered the best balance between high classification performance and consistent generalization across multiple data splits.
+
+
+### Task 6: Hyperparameter Tuning with GridSearchCV
+To improve the performance of the Random Forest model, **hyperparameter tuning** was performed using **GridSearchCV**. Instead of manually selecting hyperparameter values, Grid Search systematically evaluated multiple combinations to identify the configuration that produced the best cross-validation performance.
+
+* **Building a Machine Learning Pipeline**
+  * A Scikit-learn **Pipeline** was created to combine all preprocessing and model training steps into a single workflow.
+  * The pipeline consisted of the following stages:
+    * 1. **Simple Imputer** – Replaces missing values in the dataset.
+    * 2. **Standard Scaler** – Standardizes numerical features by removing the mean and scaling them to unit variance.
+    * 3. **Random Forest Classifier** – Performs the final classification task.
+Using a pipeline ensures that every preprocessing step is applied consistently during both training and cross-validation, preventing data leakage and making the workflow reproducible.
+
+* **Defining the Hyperparameter Grid**
+  * A grid of candidate hyperparameter values was created for the Random Forest model.
+  * The following parameters were tested:
+  * **Number of Trees (`n_estimators`)**
+    * 50
+    * 100
+    * 200
+  * **Maximum Tree Depth (`max_depth`)**
+    * 5
+    * 10
+    * None (no depth limit)
+  * **Minimum Samples per Leaf (`min_samples_leaf`)**
+    * 1
+    * 5
+Each possible combination of these values was evaluated during the search process.
+
+* **Performing Grid Search
+  * The **GridSearchCV** algorithm was used together with **5-fold Cross-Validation**.
+  * For every hyperparameter combination:
+    * The training data was divided into five folds.
+    * The model was trained five times.
+    * Each fold served as the validation set once.
+    * The average cross-validation score was calculated.
+The hyperparameter combination with the highest average performance was selected as the optimal model.
+
+* **Total Number of Model Fits**
+  * The total number of model evaluations performed by GridSearchCV was calculated as:
+    * **3 values** for `n_estimators`
+    * **3 values** for `max_depth`
+    * **2 values** for `min_samples_leaf`
+  * This results in:
+    * **3 × 3 × 2 = 18 hyperparameter combinations**
+  * Since **5-fold Cross-Validation** was used:
+    * **18 × 5 = 90 total model fits**
+Each of these 90 models was trained and evaluated automatically by GridSearchCV to identify the best-performing configuration.
+
+* **Best Hyperparameters and Performance**
+  * After the search process was completed, the following results were reported:
+    * **Best Hyperparameter Combination**
+    * **Best Cross-Validation Score**
+  * These values represent the model configuration that achieved the highest average performance across all cross-validation folds.
+  * The optimized model was then used for further evaluation and comparison with previously trained models.
+
+* **Grid Search vs. Randomized Search** 
+  * Grid Search performs an **exhaustive search**, meaning that every possible hyperparameter combination in the defined grid is evaluated.
+  * **Advantages of Grid Search**
+    * Guarantees evaluation of every specified combination.
+    * Identifies the best configuration within the search space.
+    * Suitable for small or moderate-sized parameter grids.
+  * **Disadvantages of Grid Search**
+    * Computationally expensive.
+    * Training time increases rapidly as the number of parameters and candidate values grows.
+    * May become impractical for very large search spaces.
+  * **Randomized Search**, in contrast, evaluates only a randomly selected subset of hyperparameter combinations.
+  * Advantages of Randomized Search include:
+    * Much faster for large search spaces.
+    * Requires fewer model evaluations.
+    * Often finds near-optimal solutions with significantly lower computational cost.
+
+* **Outcome**
+  * The Random Forest model was successfully optimized using **GridSearchCV** within a complete preprocessing pipeline consisting of an **Imputer**, **StandardScaler**, and **Random Forest Classifier**. A total of **90 model fits** were evaluated through **5-fold Cross-Validation**, and the best hyperparameter combination along with its corresponding cross-validation score was identified. This experiment demonstrated the importance of systematic hyperparameter tuning and highlighted the trade-off between the exhaustive nature of **Grid Search** and the computational efficiency of **Randomized Search**.
