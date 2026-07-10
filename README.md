@@ -308,3 +308,51 @@ However, feature removal is only beneficial if the resulting decrease in predict
 
 * **Outcome**
   * The feature ablation experiment evaluated the impact of removing the **five least important features** identified by the Random Forest model. By comparing the ROC-AUC scores of the full and reduced models, it was possible to determine whether those features were useful or unnecessary. This experiment demonstrated the importance of balancing predictive performance with model simplicity, showing how feature selection can reduce inference cost and improve deployment efficiency while maintaining strong classification performance.
+
+
+### Task 5: Cross-Validated Model Comparison
+To obtain a more reliable estimate of model performance, **5-fold Stratified Cross-Validation** was performed. Instead of evaluating the models using only a single train-test split, cross-validation assesses model performance across multiple subsets of the data, providing a more robust estimate of generalization ability.
+
+* **Cross-Validation Strategy**
+  * A **5-fold Stratified Cross-Validation** approach was used.
+  * In this method:
+    * The dataset was divided into **five equal-sized folds**.
+    * During each iteration, **four folds** were used for training and the **remaining fold** was used for testing.
+    * This process was repeated **five times**, ensuring that every observation served as the test set exactly once.
+    * The final performance was calculated by averaging the results from all five folds.
+The **Stratified** approach preserves the original class distribution in every fold, making the evaluation more reliable for classification problems, especially when the classes are slightly imbalanced.
+
+* **Evaluation Metric**
+  * The models were evaluated using the **Receiver Operating Characteristic – Area Under the Curve (ROC-AUC)** score.
+  * ROC-AUC measures how well a classifier distinguishes between positive and negative classes across all possible classification thresholds.
+  * An AUC value closer to **1.0** indicates excellent classification performance, whereas an AUC close to **0.5** indicates performance similar to random guessing.
+
+* **Models Compared**
+  * The following classification models were evaluated using the same 5-fold Stratified Cross-Validation procedure:
+    * **Logistic Regression**
+    * **Controlled Decision Tree**
+    * **Random Forest**
+    * **Gradient Boosting**
+Using the same evaluation strategy ensured a fair comparison between all machine learning algorithms.
+
+* **Reported Results
+  * For each model, the following statistics were calculated:
+    * **Mean ROC-AUC**
+    * **Standard Deviation (Std) of ROC-AUC**
+  * The **mean ROC-AUC** represents the average predictive performance across the five folds.
+  * The **standard deviation** measures the consistency of the model's performance across different train-test splits.
+    * **High Mean AUC** indicates strong overall predictive performance.
+    * **Low Standard Deviation** indicates stable and consistent performance across different subsets of the data.
+Together, these two statistics provide a more complete assessment of model quality.
+
+* **Interpretation**
+  * Cross-validation provides a more dependable estimate of a model's ability to generalize than a single train-test split.
+  * A single split may produce overly optimistic or pessimistic results depending on how the data happens to be divided. Cross-validation reduces this uncertainty by evaluating the model multiple times on different subsets of the dataset.
+  * As a result:
+    * Performance estimates become more reliable.
+    * Model comparison becomes fairer.
+    * The influence of random data partitioning is significantly reduced.
+    * The selected model is more likely to perform well on unseen real-world data.
+
+* **Outcome**
+  * The **5-fold Stratified Cross-Validation** experiment successfully compared the performance of **Logistic Regression**, **Controlled Decision Tree**, **Random Forest**, and **Gradient Boosting** using **ROC-AUC** as the evaluation metric. By reporting both the **mean** and **standard deviation** of ROC-AUC, the analysis provided a robust assessment of each model's predictive accuracy and stability. This comparison helped identify the model that offered the best balance between high classification performance and consistent generalization across multiple data splits.
