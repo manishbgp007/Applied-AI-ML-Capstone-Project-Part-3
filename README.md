@@ -430,3 +430,100 @@ Each of these 90 models was trained and evaluated automatically by GridSearchCV 
 
 * **Outcome**
   * The Random Forest model was successfully optimized using **GridSearchCV** within a complete preprocessing pipeline consisting of an **Imputer**, **StandardScaler**, and **Random Forest Classifier**. A total of **90 model fits** were evaluated through **5-fold Cross-Validation**, and the best hyperparameter combination along with its corresponding cross-validation score was identified. This experiment demonstrated the importance of systematic hyperparameter tuning and highlighted the trade-off between the exhaustive nature of **Grid Search** and the computational efficiency of **Randomized Search**.
+
+
+### Task 7: Manual Learning Curve
+To understand how the amount of training data affects model performance, a **manual learning curve analysis** was performed using the best machine learning pipeline obtained from the hyperparameter tuning stage. The model was trained on progressively larger portions of the training dataset, and its performance was evaluated at each stage.
+
+* **Training on Different Dataset Sizes**
+  * The optimized pipeline was trained using five different proportions of the training data:
+    * **20%**
+    * **40%**
+    * **60%**
+    * **80%**
+    * **100%**
+  * For each subset size, the model was trained from scratch and evaluated using both the training data and the independent test dataset.
+  * This approach illustrates how model performance changes as more training examples become available.
+
+* **Evaluation Metric** 
+  * For every training subset, the following performance metric was calculated:
+    * **Training ROC-AUC**
+    * **Testing ROC-AUC**
+  * The **Training ROC-AUC** measures how well the model fits the training data, while the **Testing ROC-AUC** measures how well the model generalizes to unseen data.
+  * The results for all dataset sizes were summarized in a table (and optionally visualized using a learning curve plot).
+
+* **Interpretation of the Learning Curve**
+  * The learning curve provides valuable insight into the relationship between dataset size and model performance.
+  * Training ROC-AUC
+  * As the size of the training dataset increases:
+    * The **Training ROC-AUC** typically decreases slightly.
+    * This occurs because the model has more diverse data to learn from and is less able to memorize individual training examples.
+    * A gradual decrease in training performance generally indicates **reduced overfitting**.
+
+* **Testing ROC-AUC**
+  * As additional training data becomes available:
+    * The **Testing ROC-AUC** generally increases.
+    * More training examples allow the model to learn broader and more representative patterns.
+    * This leads to improved **generalization** and more reliable predictions on unseen data.
+
+* **Determining Whether the Model is Data-Limited or Capacity-Limited**
+  * The shape of the learning curve helps diagnose whether further improvements are likely to come from collecting more data or from using a more powerful model.
+  * **Data-Limited Model**
+    * If the **Testing ROC-AUC continues to increase at 100% of the available training data**, it suggests that the model has not yet reached its full potential.
+  * In this case:
+    * Additional training data would likely improve performance.
+    * The model is considered **data-limited**.
+  * **Capacity-Limited Model**
+    * If the **Testing ROC-AUC plateaus** and no longer improves as more data is added, it indicates that the current model has reached its learning capacity.
+  * In this situation:
+    * Collecting more data may provide little benefit.
+    * Performance improvements are more likely to come from using a more sophisticated model, better feature engineering, or additional hyperparameter tuning.
+    * The model is considered **capacity-limited**.
+
+* **Importance of Learning Curves
+  * Learning curves are valuable diagnostic tools because they help identify:
+    * Whether the model is overfitting or underfitting.
+    * Whether additional training data is likely to improve performance.
+    * Whether increasing model complexity is necessary.
+    * Whether the current model is making efficient use of the available data.
+These insights support informed decisions about future model development and optimization.
+
+* **Outcome**
+  * The manual learning curve experiment demonstrated how model performance changes as the amount of training data increases. By comparing **Training ROC-AUC** and **Testing ROC-AUC** across training subsets ranging from **20% to 100%**, the analysis provided insight into the model's learning behavior. The learning curve also helped determine whether the model was **data-limited**, suggesting that more data could improve performance, or **capacity-limited**, indicating that improvements would require a more expressive model or enhanced feature engineering rather than additional training data.
+
+
+### Task 8: Serialize Best Model
+After identifying the best-performing machine learning pipeline through hyperparameter tuning and evaluation, the final model was **serialized** and saved to disk. Model serialization allows the trained pipeline to be reused later without repeating the computationally expensive training process.
+
+* **Saving the Best Model**
+  * The optimized machine learning pipeline was saved using the **Joblib** library.
+  * The following function was used:
+    * joblib.dump(best_pipeline, 'best_model.pkl')
+  * This command stores the complete trained pipeline—including preprocessing steps (such as imputation and scaling) and the trained Random Forest model—into a file named       **`best_model.pkl`**.
+  * Saving the entire pipeline ensures that future predictions follow exactly the same preprocessing workflow used during training.
+
+* **Reloading the Saved Model**
+  * To verify that the saved model was correctly stored, it was reloaded from disk using the following command:
+    * joblib.load('best_model.pkl')
+  * The reloaded pipeline was then used to generate predictions on a small set of sample observations.
+  * The predictions produced by the loaded model matched those of the original trained pipeline, confirming that the serialization and deserialization process was successful.
+
+* **Verification**
+  * After loading the serialized model:
+    * Sample rows from the dataset were passed to the pipeline.
+    * Predictions were generated successfully.
+    * The prediction results were compared with those obtained before saving the model.
+    * The outputs were consistent, demonstrating that the model had been restored correctly.
+This verification step confirmed that the saved model could be reliably reused.
+
+* **Importance of Model Serialization**
+  * Model serialization provides several practical advantages:
+    * Eliminates the need to retrain the model every time predictions are required.
+    * Preserves the complete trained pipeline, including preprocessing and model parameters.
+    * Ensures reproducibility by allowing identical predictions across different sessions.
+    * Enables easy deployment in production environments such as web applications, APIs, or cloud services.
+    * Reduces computational cost and saves time during inference.
+Serialization is an essential step in the machine learning deployment workflow because it transforms a trained model into a reusable production asset.
+
+* **Outcome*
+  * The best-performing machine learning pipeline was successfully serialized using **`joblib.dump()`** and stored as **`best_model.pkl`**. The model was then reloaded using **`joblib.load()`**, and its predictions were verified on sample data to confirm correctness. This process demonstrated that the trained pipeline can be reused without retraining, ensuring reproducibility, efficient deployment, and consistent prediction performance in future applications.
