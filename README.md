@@ -28,10 +28,10 @@ The first classification model developed in this section was an **unconstrained 
 
 * **Need for Model Regularization**
   * The baseline results demonstrate that an unconstrained Decision Tree is prone to overfitting. To improve generalization, the model complexity must be controlled using hyperparameters such as:
-  * **`max_depth`** – Limits the maximum depth of the tree.
-  * **`min_samples_split`** – Specifies the minimum number of samples required to split a node.
-  * **`min_samples_leaf`** – Ensures that each leaf node contains a minimum number of observations.
-  * **`max_leaf_nodes`** – Restricts the total number of leaf nodes.
+    * **`max_depth`** – Limits the maximum depth of the tree.
+    * **`min_samples_split`** – Specifies the minimum number of samples required to split a node.
+    * **`min_samples_leaf`** – Ensures that each leaf node contains a minimum number of observations.
+    * **`max_leaf_nodes`** – Restricts the total number of leaf nodes.
 These parameters reduce the complexity of the tree, helping the model focus on meaningful patterns rather than memorizing the training data.
 
 * **Outcome**
