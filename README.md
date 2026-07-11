@@ -1,8 +1,9 @@
 # Applied-AI-ML-Capstone-Project-Part-3
-
+__________________________________________
 ### Part 3 — Advanced Modeling — Ensembles, Tuning, and Full ML Pipeline
-
+_______________________________________________________________________
 ### Task 1: Decision Tree Baseline
+
 The first classification model developed in this section was an **unconstrained Decision Tree Classifier**. The model was trained using the default parameters provided by Scikit-learn, where **`max_depth=None`**. This means that the tree was allowed to grow until all leaf nodes became pure or no further splits were possible.
 
 * **Training the Decision Tree Classifier**
@@ -32,20 +33,20 @@ The first classification model developed in this section was an **unconstrained 
     * **`min_samples_split`** – Specifies the minimum number of samples required to split a node.
     * **`min_samples_leaf`** – Ensures that each leaf node contains a minimum number of observations.
     * **`max_leaf_nodes`** – Restricts the total number of leaf nodes.
-These parameters reduce the complexity of the tree, helping the model focus on meaningful patterns rather than memorizing the training data.
+  * These parameters reduce the complexity of the tree, helping the model focus on meaningful patterns rather than memorizing the training data.
 
 * **Outcome**
   * The unconstrained Decision Tree served as the baseline classification model for this section. Although it achieved very high training accuracy, the noticeably lower testing accuracy revealed clear evidence of overfitting. This experiment highlighted the importance of controlling tree complexity and motivated the use of pruning and hyperparameter tuning in the subsequent tasks to improve the model's ability to generalize to unseen data.
 
-
 ### Task 2: Controlled Decision Tree
+____________________________________
 To reduce the overfitting observed in the baseline Decision Tree model, a **controlled (regularized) Decision Tree Classifier** was trained by limiting the complexity of the tree. Hyperparameters were introduced to prevent the model from growing excessively deep and fitting noise in the training data.
 
 * **Training the Controlled Decision Tree**
   * A new Decision Tree Classifier was trained using the following hyperparameters:
     * **`max_depth = 5`**
     * **`min_samples_split = 20`**
-These constraints limited the growth of the tree and encouraged the model to learn only the most important patterns from the training data rather than memorizing every observation.
+  * These constraints limited the growth of the tree and encouraged the model to learn only the most important patterns from the training data rather than memorizing every observation.
 
 * **Role of Hyperparameters**
   * Maximum Depth (`max_depth = 5`)
@@ -71,7 +72,7 @@ These constraints limited the growth of the tree and encouraged the model to lea
   * The following observations were made:
     * **Training Accuracy:** Lower than the unconstrained Decision Tree.
     * **Testing Accuracy:** Higher than the unconstrained Decision Tree.
- Although the model did not memorize the training data as effectively, it performed better on unseen data, indicating improved predictive capability.
+  * Although the model did not memorize the training data as effectively, it performed better on unseen data, indicating improved predictive capability.
 
 * **Interpretation**
   * The decrease in training accuracy combined with the improvement in testing accuracy indicates that the controlled Decision Tree achieved better **generalization**.
@@ -87,6 +88,7 @@ These constraints limited the growth of the tree and encouraged the model to lea
 
 
 ### Task 3: Gini vs Entropy
+___________________________
   * To compare different splitting criteria used by Decision Tree classifiers, two models were trained using different impurity measures:
     * **Gini Impurity (`criterion='gini'`)**
     * **Entropy (`criterion='entropy'`)**
@@ -117,7 +119,7 @@ The Decision Tree algorithm selects the split that produces the largest reductio
     * Training accuracy
     * Testing accuracy
     * Overall classification performance
-The results showed that the **Gini** and **Entropy** criteria produced **very similar test accuracy**, indicating that both methods identified nearly the same decision boundaries for this dataset.
+  * The results showed that the **Gini** and **Entropy** criteria produced **very similar test accuracy**, indicating that both methods identified nearly the same decision boundaries for this dataset.
 
 * **Interpretation**
   * Although Gini Impurity and Entropy use different mathematical formulas to measure node impurity, they often produce very similar Decision Trees in practice.
@@ -125,24 +127,25 @@ The results showed that the **Gini** and **Entropy** criteria produced **very si
     * **Gini Impurity = 0** means the node is perfectly pure because all samples belong to a single class.
     * **Entropy = 0** also indicates complete purity with no uncertainty.
     * Both criteria generally select similar feature splits and achieve comparable predictive performance.
-In many real-world machine learning problems, the choice between Gini and Entropy has only a small effect on the final accuracy.
+  * In many real-world machine learning problems, the choice between Gini and Entropy has only a small effect on the final accuracy.
 
 * **Practical Differences**
   * Although their performance is often similar, there are some practical differences:
-  * **Gini Impurity**
-    * Computationally faster because it does not require logarithmic calculations.
-    * Commonly used as the default criterion in Scikit-learn.
-    * Preferred when computational efficiency is important.
-  * **Entropy**
-    * Based on Information Theory.
-    * Uses Information Gain to determine the best split.
-    * May occasionally produce slightly different tree structures but usually similar predictive performance.
+    * **Gini Impurity**
+      * Computationally faster because it does not require logarithmic calculations.
+      * Commonly used as the default criterion in Scikit-learn.
+      * Preferred when computational efficiency is important.
+    * **Entropy**
+      * Based on Information Theory.
+      * Uses Information Gain to determine the best split.
+      * May occasionally produce slightly different tree structures but usually similar predictive performance.
 
 * **Outcome**
-  * The comparison between **Gini Impurity** and **Entropy** showed that both splitting criteria produced nearly identical classification performance on the test dataset. This indicates that either criterion can be effectively used for Decision Tree learning, with the choice often depending on computational efficiency or user preference rather than significant differences in predictive accuracy.
+The comparison between **Gini Impurity** and **Entropy** showed that both splitting criteria produced nearly identical classification performance on the test dataset. This indicates that either criterion can be effectively used for Decision Tree learning, with the choice often depending on computational efficiency or user preference rather than significant differences in predictive accuracy.
 
 
 ### Task 4: Random Forest Classifier
+____________________________________
 To improve the performance and generalization ability of the Decision Tree model, a **Random Forest Classifier** was implemented. Random Forest is an ensemble learning algorithm that combines the predictions of multiple Decision Trees to produce a more accurate and robust classifier. By averaging the predictions of many trees, Random Forest reduces the risk of overfitting that is commonly observed in a single Decision Tree.
 
 * **Training the Random Forest Model**
@@ -162,7 +165,7 @@ To improve the performance and generalization ability of the Decision Tree model
     * **Training Accuracy** indicates how well the model fits the training data.
     * **Testing Accuracy** measures the model's performance on unseen data.
     * **ROC-AUC** evaluates the model's ability to distinguish between the two classes across different decision thresholds.
-A high test accuracy and a high ROC-AUC score indicate that the model generalizes well and makes reliable predictions.
+  * A high test accuracy and a high ROC-AUC score indicate that the model generalizes well and makes reliable predictions.
 
 * **Feature Importance Analysis**
   * One advantage of Random Forest is its ability to estimate the relative importance of each input feature.
@@ -185,18 +188,18 @@ A high test accuracy and a high ROC-AUC score indicate that the model generalize
 * **Why Random Forest Performs Better**
   * A single Decision Tree is considered a **high-variance model** because small changes in the training data can produce very different tree structures.
   * Random Forest reduces this variance by averaging the predictions of many independent trees.
-  * As a result:
+  * **As a result:**
     * Individual trees may make different errors.
     * Averaging their predictions reduces the impact of those errors.
     * The final model becomes more stable and generalizes better to unseen data.
-This ensemble approach usually provides higher predictive accuracy and better robustness than a single deep Decision Tree.
+  * This ensemble approach usually provides higher predictive accuracy and better robustness than a single deep Decision Tree.
 
 * **Outcome**
-  * The Random Forest Classifier successfully combined **100 Decision Trees** to produce a more accurate and reliable classification model. The model was evaluated using **training accuracy, testing accuracy, and ROC-AUC**, while the **top five most important features** provided insights into the variables that most strongly influenced the predictions. The experiment also demonstrated how **bagging**, **bootstrap sampling**, and **random feature selection** reduce variance and improve generalization, making Random Forest one of the most effective ensemble learning algorithms for classification tasks.
+The Random Forest Classifier successfully combined **100 Decision Trees** to produce a more accurate and reliable classification model. The model was evaluated using **training accuracy, testing accuracy, and ROC-AUC**, while the **top five most important features** provided insights into the variables that most strongly influenced the predictions. The experiment also demonstrated how **bagging**, **bootstrap sampling**, and **random feature selection** reduce variance and improve generalization, making Random Forest one of the most effective ensemble learning algorithms for classification tasks.
 
 
 ### Task 4a: Gradient Boosting Classifier
-
+_________________________________________
 To further improve classification performance, a **Gradient Boosting Classifier** was implemented. Unlike Random Forest, which builds many independent decision trees in parallel, Gradient Boosting builds trees **sequentially**, where each new tree learns to correct the prediction errors made by the previous trees. This boosting strategy often results in higher predictive accuracy, especially for complex datasets.
 
 * **Training the Gradient Boosting Model**
@@ -204,8 +207,7 @@ To further improve classification performance, a **Gradient Boosting Classifier*
     * **Number of Estimators (`n_estimators`) = 100**
     * **Learning Rate (`learning_rate`) = 0.1**
     * **Maximum Tree Depth (`max_depth`) = 3**
-
-Each tree in the ensemble was intentionally kept shallow (depth = 3), allowing the model to learn gradually while reducing the risk of overfitting.
+  * Each tree in the ensemble was intentionally kept shallow (depth = 3), allowing the model to learn gradually while reducing the risk of overfitting.
 
 * **Model Evaluation**
   * The trained Gradient Boosting model was evaluated on both the training and testing datasets.
@@ -217,7 +219,7 @@ Each tree in the ensemble was intentionally kept shallow (depth = 3), allowing t
     * **Training Accuracy** measures how well the model fits the training data.
     * **Testing Accuracy** evaluates performance on unseen data.
     * **ROC-AUC** measures the model's ability to distinguish between positive and negative classes across all classification thresholds.
-A higher ROC-AUC indicates better classification performance.
+  * A higher ROC-AUC indicates better classification performance.
 
 * **How Gradient Boosting Works**
   * Gradient Boosting is an **ensemble learning algorithm** that combines multiple weak learners (typically shallow decision trees) into a strong predictive model.
@@ -227,7 +229,7 @@ A higher ROC-AUC indicates better classification performance.
     3. A second tree is trained specifically to correct those errors.
     4. Each subsequent tree continues to reduce the remaining prediction errors.
     5. The final prediction is obtained by combining the predictions of all trees.
-Because every new tree focuses on correcting mistakes made by earlier trees, the overall model becomes increasingly accurate.
+  * Because every new tree focuses on correcting mistakes made by earlier trees, the overall model becomes increasingly accurate.
 
 * **Role of the Hyperparameters**
   * Number of Estimators (`n_estimators = 100`)
@@ -258,13 +260,14 @@ Because every new tree focuses on correcting mistakes made by earlier trees, the
     * Higher prediction accuracy.
     * Better ROC-AUC performance.
     * Stronger ability to capture complex relationships in the data.
-However, if the **learning rate** is too high or the **tree depth** is too large, the model may begin to memorize the training data, leading to **overfitting**. Therefore, careful tuning of these hyperparameters is essential to achieve a balance between model complexity and generalization.
+  * However, if the **learning rate** is too high or the **tree depth** is too large, the model may begin to memorize the training data, leading to **overfitting**. Therefore, careful tuning of these hyperparameters is essential to achieve a balance between model complexity and generalization.
 
 * **Outcome**
-  * The Gradient Boosting Classifier was successfully trained using **100 estimators**, a **learning rate of 0.1**, and **maximum tree depth of 3**. The model was evaluated using **training accuracy, testing accuracy, and ROC-AUC**, demonstrating its effectiveness as a powerful ensemble learning technique. The experiment highlighted the advantages of sequential boosting while emphasizing the importance of selecting appropriate hyperparameters to maximize predictive performance without causing overfitting.
+The Gradient Boosting Classifier was successfully trained using **100 estimators**, a **learning rate of 0.1**, and **maximum tree depth of 3**. The model was evaluated using **training accuracy, testing accuracy, and ROC-AUC**, demonstrating its effectiveness as a powerful ensemble learning technique. The experiment highlighted the advantages of sequential boosting while emphasizing the importance of selecting appropriate hyperparameters to maximize predictive performance without causing overfitting.
 
 
 ### Task 4b: Feature Ablation
+_____________________________
 To evaluate the contribution of individual features to the model's predictive performance, a **feature ablation experiment** was performed. The objective was to determine whether the least important features identified by the Random Forest model were actually useful or whether they could be removed without significantly affecting performance.
 
 * **Identifying the Least Important Features**
@@ -282,7 +285,7 @@ To evaluate the contribution of individual features to the model's predictive pe
     * **Reduced Model:** Trained after removing the five least important features.
   * The primary evaluation metric used for comparison was:
     * **ROC-AUC Score**
-Comparing the ROC-AUC values allowed the impact of feature removal on classification performance to be measured objectively.
+    * Comparing the ROC-AUC values allowed the impact of feature removal on classification performance to be measured objectively.
 
 * **Interpretation of Results**
   * The feature ablation results were interpreted as follows:
@@ -294,7 +297,7 @@ Comparing the ROC-AUC values allowed the impact of feature removal on classifica
     * The removed features contributed meaningful predictive information.
     * Their removal reduced the model's ability to distinguish between classes.
     * Those features should be retained in the final model.
-This analysis helped determine which features were truly valuable for prediction.
+  * This analysis helped determine which features were truly valuable for prediction.
 
 * **Production Trade-Off**
   * Feature selection is not only important for improving model interpretability but also for practical deployment in production systems.
@@ -304,13 +307,14 @@ This analysis helped determine which features were truly valuable for prediction
     * Speeds up inference time.
     * Simplifies model maintenance and deployment.
     * Makes the model easier to interpret.
-However, feature removal is only beneficial if the resulting decrease in predictive performance is **minimal or negligible**. A significant drop in ROC-AUC would indicate that the removed features contain important information and should be retained.
+  * However, feature removal is only beneficial if the resulting decrease in predictive performance is **minimal or negligible**. A significant drop in ROC-AUC would indicate that the removed features contain important information and should be retained.
 
 * **Outcome**
-  * The feature ablation experiment evaluated the impact of removing the **five least important features** identified by the Random Forest model. By comparing the ROC-AUC scores of the full and reduced models, it was possible to determine whether those features were useful or unnecessary. This experiment demonstrated the importance of balancing predictive performance with model simplicity, showing how feature selection can reduce inference cost and improve deployment efficiency while maintaining strong classification performance.
+The feature ablation experiment evaluated the impact of removing the **five least important features** identified by the Random Forest model. By comparing the ROC-AUC scores of the full and reduced models, it was possible to determine whether those features were useful or unnecessary. This experiment demonstrated the importance of balancing predictive performance with model simplicity, showing how feature selection can reduce inference cost and improve deployment efficiency while maintaining strong classification performance.
 
 
 ### Task 5: Cross-Validated Model Comparison
+____________________________________________
 To obtain a more reliable estimate of model performance, **5-fold Stratified Cross-Validation** was performed. Instead of evaluating the models using only a single train-test split, cross-validation assesses model performance across multiple subsets of the data, providing a more robust estimate of generalization ability.
 
 * **Cross-Validation Strategy**
@@ -320,7 +324,7 @@ To obtain a more reliable estimate of model performance, **5-fold Stratified Cro
     * During each iteration, **four folds** were used for training and the **remaining fold** was used for testing.
     * This process was repeated **five times**, ensuring that every observation served as the test set exactly once.
     * The final performance was calculated by averaging the results from all five folds.
-The **Stratified** approach preserves the original class distribution in every fold, making the evaluation more reliable for classification problems, especially when the classes are slightly imbalanced.
+  * The **Stratified** approach preserves the original class distribution in every fold, making the evaluation more reliable for classification problems, especially when the classes are slightly imbalanced.
 
 * **Evaluation Metric**
   * The models were evaluated using the **Receiver Operating Characteristic – Area Under the Curve (ROC-AUC)** score.
@@ -333,7 +337,7 @@ The **Stratified** approach preserves the original class distribution in every f
     * **Controlled Decision Tree**
     * **Random Forest**
     * **Gradient Boosting**
-Using the same evaluation strategy ensured a fair comparison between all machine learning algorithms.
+  * Using the same evaluation strategy ensured a fair comparison between all machine learning algorithms.
 
 * **Reported Results**
   * For each model, the following statistics were calculated:
@@ -343,7 +347,7 @@ Using the same evaluation strategy ensured a fair comparison between all machine
   * The **standard deviation** measures the consistency of the model's performance across different train-test splits.
     * **High Mean AUC** indicates strong overall predictive performance.
     * **Low Standard Deviation** indicates stable and consistent performance across different subsets of the data.
-Together, these two statistics provide a more complete assessment of model quality.
+  * Together, these two statistics provide a more complete assessment of model quality.
 
 * **Interpretation**
   * Cross-validation provides a more dependable estimate of a model's ability to generalize than a single train-test split.
@@ -355,10 +359,11 @@ Together, these two statistics provide a more complete assessment of model quali
     * The selected model is more likely to perform well on unseen real-world data.
 
 * **Outcome**
-  * The **5-fold Stratified Cross-Validation** experiment successfully compared the performance of **Logistic Regression**, **Controlled Decision Tree**, **Random Forest**, and **Gradient Boosting** using **ROC-AUC** as the evaluation metric. By reporting both the **mean** and **standard deviation** of ROC-AUC, the analysis provided a robust assessment of each model's predictive accuracy and stability. This comparison helped identify the model that offered the best balance between high classification performance and consistent generalization across multiple data splits.
+The **5-fold Stratified Cross-Validation** experiment successfully compared the performance of **Logistic Regression**, **Controlled Decision Tree**, **Random Forest**, and **Gradient Boosting** using **ROC-AUC** as the evaluation metric. By reporting both the **mean** and **standard deviation** of ROC-AUC, the analysis provided a robust assessment of each model's predictive accuracy and stability. This comparison helped identify the model that offered the best balance between high classification performance and consistent generalization across multiple data splits.
 
 
 ### Task 6: Hyperparameter Tuning with GridSearchCV
+___________________________________________________
 To improve the performance of the Random Forest model, **hyperparameter tuning** was performed using **GridSearchCV**. Instead of manually selecting hyperparameter values, Grid Search systematically evaluated multiple combinations to identify the configuration that produced the best cross-validation performance.
 
 * **Building a Machine Learning Pipeline**
@@ -367,7 +372,7 @@ To improve the performance of the Random Forest model, **hyperparameter tuning**
     * 1. **Simple Imputer** – Replaces missing values in the dataset.
     * 2. **Standard Scaler** – Standardizes numerical features by removing the mean and scaling them to unit variance.
     * 3. **Random Forest Classifier** – Performs the final classification task.
-Using a pipeline ensures that every preprocessing step is applied consistently during both training and cross-validation, preventing data leakage and making the workflow reproducible.
+  * Using a pipeline ensures that every preprocessing step is applied consistently during both training and cross-validation, preventing data leakage and making the workflow reproducible.
 
 * **Defining the Hyperparameter Grid**
   * A grid of candidate hyperparameter values was created for the Random Forest model.
@@ -383,7 +388,7 @@ Using a pipeline ensures that every preprocessing step is applied consistently d
   * **Minimum Samples per Leaf (`min_samples_leaf`)**
     * 1
     * 5
-Each possible combination of these values was evaluated during the search process.
+  * Each possible combination of these values was evaluated during the search process.
 
 * **Performing Grid Search**
   * The **GridSearchCV** algorithm was used together with **5-fold Cross-Validation**.
@@ -392,7 +397,7 @@ Each possible combination of these values was evaluated during the search proces
     * The model was trained five times.
     * Each fold served as the validation set once.
     * The average cross-validation score was calculated.
-The hyperparameter combination with the highest average performance was selected as the optimal model.
+  * The hyperparameter combination with the highest average performance was selected as the optimal model.
 
 * **Total Number of Model Fits**
   * The total number of model evaluations performed by GridSearchCV was calculated as:
@@ -403,7 +408,7 @@ The hyperparameter combination with the highest average performance was selected
     * **3 × 3 × 2 = 18 hyperparameter combinations**
   * Since **5-fold Cross-Validation** was used:
     * **18 × 5 = 90 total model fits**
-Each of these 90 models was trained and evaluated automatically by GridSearchCV to identify the best-performing configuration.
+  * Each of these 90 models was trained and evaluated automatically by GridSearchCV to identify the best-performing configuration.
 
 * **Best Hyperparameters and Performance**
   * After the search process was completed, the following results were reported:
@@ -429,10 +434,11 @@ Each of these 90 models was trained and evaluated automatically by GridSearchCV 
     * Often finds near-optimal solutions with significantly lower computational cost.
 
 * **Outcome**
-  * The Random Forest model was successfully optimized using **GridSearchCV** within a complete preprocessing pipeline consisting of an **Imputer**, **StandardScaler**, and **Random Forest Classifier**. A total of **90 model fits** were evaluated through **5-fold Cross-Validation**, and the best hyperparameter combination along with its corresponding cross-validation score was identified. This experiment demonstrated the importance of systematic hyperparameter tuning and highlighted the trade-off between the exhaustive nature of **Grid Search** and the computational efficiency of **Randomized Search**.
+The Random Forest model was successfully optimized using **GridSearchCV** within a complete preprocessing pipeline consisting of an **Imputer**, **StandardScaler**, and **Random Forest Classifier**. A total of **90 model fits** were evaluated through **5-fold Cross-Validation**, and the best hyperparameter combination along with its corresponding cross-validation score was identified. This experiment demonstrated the importance of systematic hyperparameter tuning and highlighted the trade-off between the exhaustive nature of **Grid Search** and the computational efficiency of **Randomized Search**.
 
 
 ### Task 7: Manual Learning Curve
+__________________________________
 To understand how the amount of training data affects model performance, a **manual learning curve analysis** was performed using the best machine learning pipeline obtained from the hyperparameter tuning stage. The model was trained on progressively larger portions of the training dataset, and its performance was evaluated at each stage.
 
 * **Training on Different Dataset Sizes**
@@ -470,12 +476,12 @@ To understand how the amount of training data affects model performance, a **man
   * The shape of the learning curve helps diagnose whether further improvements are likely to come from collecting more data or from using a more powerful model.
   * **Data-Limited Model**
     * If the **Testing ROC-AUC continues to increase at 100% of the available training data**, it suggests that the model has not yet reached its full potential.
-  * In this case:
+  * **In this case:**
     * Additional training data would likely improve performance.
     * The model is considered **data-limited**.
   * **Capacity-Limited Model**
     * If the **Testing ROC-AUC plateaus** and no longer improves as more data is added, it indicates that the current model has reached its learning capacity.
-  * In this situation:
+  * **In this situation:**
     * Collecting more data may provide little benefit.
     * Performance improvements are more likely to come from using a more sophisticated model, better feature engineering, or additional hyperparameter tuning.
     * The model is considered **capacity-limited**.
@@ -486,13 +492,14 @@ To understand how the amount of training data affects model performance, a **man
     * Whether additional training data is likely to improve performance.
     * Whether increasing model complexity is necessary.
     * Whether the current model is making efficient use of the available data.
-These insights support informed decisions about future model development and optimization.
+  * These insights support informed decisions about future model development and optimization.
 
 * **Outcome**
-  * The manual learning curve experiment demonstrated how model performance changes as the amount of training data increases. By comparing **Training ROC-AUC** and **Testing ROC-AUC** across training subsets ranging from **20% to 100%**, the analysis provided insight into the model's learning behavior. The learning curve also helped determine whether the model was **data-limited**, suggesting that more data could improve performance, or **capacity-limited**, indicating that improvements would require a more expressive model or enhanced feature engineering rather than additional training data.
+The manual learning curve experiment demonstrated how model performance changes as the amount of training data increases. By comparing **Training ROC-AUC** and **Testing ROC-AUC** across training subsets ranging from **20% to 100%**, the analysis provided insight into the model's learning behavior. The learning curve also helped determine whether the model was **data-limited**, suggesting that more data could improve performance, or **capacity-limited**, indicating that improvements would require a more expressive model or enhanced feature engineering rather than additional training data.
 
 
 ### Task 8: Serialize Best Model
+________________________________
 After identifying the best-performing machine learning pipeline through hyperparameter tuning and evaluation, the final model was **serialized** and saved to disk. Model serialization allows the trained pipeline to be reused later without repeating the computationally expensive training process.
 
 * **Saving the Best Model**
@@ -514,7 +521,7 @@ After identifying the best-performing machine learning pipeline through hyperpar
     * Predictions were generated successfully.
     * The prediction results were compared with those obtained before saving the model.
     * The outputs were consistent, demonstrating that the model had been restored correctly.
-This verification step confirmed that the saved model could be reliably reused.
+  * This verification step confirmed that the saved model could be reliably reused.
 
 * **Importance of Model Serialization**
   * Model serialization provides several practical advantages:
@@ -523,7 +530,7 @@ This verification step confirmed that the saved model could be reliably reused.
     * Ensures reproducibility by allowing identical predictions across different sessions.
     * Enables easy deployment in production environments such as web applications, APIs, or cloud services.
     * Reduces computational cost and saves time during inference.
-Serialization is an essential step in the machine learning deployment workflow because it transforms a trained model into a reusable production asset.
+  * Serialization is an essential step in the machine learning deployment workflow because it transforms a trained model into a reusable production asset.
 
 * **Outcome**
-  * The best-performing machine learning pipeline was successfully serialized using **`joblib.dump()`** and stored as **`best_model.pkl`**. The model was then reloaded using **`joblib.load()`**, and its predictions were verified on sample data to confirm correctness. This process demonstrated that the trained pipeline can be reused without retraining, ensuring reproducibility, efficient deployment, and consistent prediction performance in future applications.
+The best-performing machine learning pipeline was successfully serialized using **`joblib.dump()`** and stored as **`best_model.pkl`**. The model was then reloaded using **`joblib.load()`**, and its predictions were verified on sample data to confirm correctness. This process demonstrated that the trained pipeline can be reused without retraining, ensuring reproducibility, efficient deployment, and consistent prediction performance in future applications.
